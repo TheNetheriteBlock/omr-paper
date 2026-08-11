@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phiếu làm bài tự luận</title>
+<style>
+/* ======================================================================
+   BẢNG BIẾN SỐ (CSS VARIABLES)
+   ====================================================================== */
+:root{
+  --border-color: #2c4a52; 
+  --frame-bg: #c6ecda; 
+  --panel-bg: #ffffff; 
+  --ink: #1a1a1a; 
+  --bubble-size: 15px; 
+  --bubble-border: 1.4px; 
+  --anchor-size: 25px; 
+  --dot-size: 10px; 
+  --radius: 4px; 
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  padding:24px 0 60px;
+  background:#e8e8e8;
+  font-family:"Times New Roman", "Noto Serif", Georgia, serif;
+  color:var(--ink);
+}
+
+.sheet {
+  width: 794px;
+  min-height: 1123px; 
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 0 14px rgba(0,0,0,.25);
+  padding: 53px 45px; 
+  position: relative; 
+}
+
+/* ---------- 4 MARKER GÓC A4 ---------- */
+.page-anchor {
+  position:absolute;
+  width:var(--anchor-size); height:var(--anchor-size);
+  background:var(--ink);
+}
+.page-anchor.pa-tl{ top:20px; left: 20px; }
+.page-anchor.pa-tr{ top:20px; right:20px; }
+.page-anchor.pa-bl{ bottom:20px; left:20px; }
+.page-anchor.pa-br{ bottom:20px; right:20px; }
+
+/* ---------- Tiêu đề ---------- */
+.sheet-header { text-align:center; margin-bottom:14px; }
+.sheet-header .org-title {
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 8px 0; /* Khoảng cách đẩy xuống chữ BÀI THI TỰ LUẬN */
+  letter-spacing: 0.5px;
+}
+.sheet-header h1 { font-size:20px; font-weight:700; letter-spacing:.5px; margin:0 0 4px; }
+.sheet-header .subtitle { font-size:15px; font-weight:600; margin:0 0 2px; }
+.sheet-header .exam-date { font-size:13px; margin:0; }
+
+/* ---------- Khung dùng chung ---------- */
+.frame {
+  position:relative;
+  border:1.6px solid var(--border-color);
+  border-radius:var(--radius);
+  background:var(--panel-bg);
+}
+
+/* ================= BỐ CỤC KHU VỰC THÔNG TIN ================= */
+.top-section {
+  display:grid;
+  grid-template-columns: 150px 1fr;
+  gap:20px;
+  align-items:stretch;
+  margin-bottom:12px;
+}
+.left-col { display:flex; flex-direction:column; gap:12px; }
+
+/* Ô Chữ ký & Ô Trang (Đã bỏ min-height để thu gọn tối đa) */
+.diem-box { display:flex; flex-direction:column; }
+.diem-box .diem-label {
+  text-align:center; font-weight:700; font-size:13px;
+  padding:5px; border-bottom:1.4px solid var(--border-color);
+}
+
+/* Khoảng trống cho chữ ký (Thu hẹp lại) */
+.diem-box .diem-space { min-height: 40px; }
+
+
+.side-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 45px; 
+  border-right: 1.6px solid var(--border-color); 
+  font-weight: 700;
+  font-size: 11px; 
+  line-height: 1.2;
+  text-align: center;
+  padding: 4px;
+}
+
+/* ================= KHUNG TRANG (BỐ CỤC NGANG ÉP MỎNG) ================= */
+.page-box {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+.page-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6px 0;
+  gap: 6px;
+}
+.pm-labels, .pm-bubbles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+.pm-labels span { font-size: 13px; font-weight: 700; }
+
+/* Khung Thông tin + Điểm */
+.info-score-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-box {
+  flex: 0 0 70%;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px; 
+}
+.info-row {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+}
+.info-row .num { font-weight:700; white-space:nowrap; }
+.info-row .fill {
+  display: block;
+  border-bottom: 1.5px dotted var(--ink);
+  height: 22px;
+  width: 100%;
+}
+
+.score-box {
+  flex: 0 0 30%;
+  border-left: 1.6px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+.score-box .score-label {
+  text-align:center; font-weight:700; font-size:14px;
+  padding:5px; border-bottom:1.4px solid var(--border-color);
+}
+.score-box .score-space { flex:1; }
+
+/* ================= HỆ THỐNG MARKER CHO TRANG & SBD ================= */
+
+/* 1. Marker cho khung Trang (Bay lơ lửng ở trên) */
+.page-box::before, .page-box::after {
+  content: "";
+  position: absolute;
+  top: -18px;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  background: var(--ink);
+}
+.page-box::before { left: -1.6px; }
+.page-box::after { right: -1.6px; }
+
+/* 2. Marker cho khung SBD (Nằm lọt thỏm BÊN TRONG phần lưới) */
+.sbd-grid-wrapper {
+  position: relative; /* Kích hoạt tọa độ để neo marker vào bên trong wrapper */
+}
+.sbd-grid-wrapper::before, .sbd-grid-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 6px; /* Đẩy xuống 6px cho cách viền trên một chút */
+  width: var(--dot-size);
+  height: var(--dot-size);
+  background: var(--ink);
+}
+.sbd-grid-wrapper::before { left: 10px; } /* Căn cùng hàng với lề padding trái */
+.sbd-grid-wrapper::after { right: 10px; } /* Căn cùng hàng với lề padding phải */
+
+/* ================= KHUNG TRANG (BỐ CỤC NGANG ÉP MỎNG) ================= */
+.page-box {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  margin-top: 12px; /* Đẩy nguyên khối này xuống để marker không cắn vào viền trên */
+}
+/* ================= SBD DÀN NGANG (CỘT TIÊU ĐỀ DỌC) ================= */
+
+.sbd-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch; 
+  padding: 0; 
+}
+.sbd-grid-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 8px 10px; 
+}
+.sbd-h-grid {
+  display: grid;
+  grid-template-columns: 30px repeat(10, minmax(22px, 32px));
+  justify-content: center;
+  column-gap: 16px; 
+  row-gap: 4px;     
+  align-items: center;
+}
+.sbd-h-row { display: contents; }
+.sbd-h-row .digit-head {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+.sbd-h-row .entry-cell {
+  height: 16px; 
+  width: 24px;  
+  border: 1.4px solid var(--ink);
+  background: #fff;
+  justify-self: center;
+}
+/* Ô tròn đáp án */
+.bubble {
+  width:var(--bubble-size); height:var(--bubble-size);
+  border:var(--bubble-border) solid var(--ink);
+  border-radius:50%;
+  margin:0 auto;
+  background:#fff;
+}
+.bubble.filled { background:var(--ink); }
+.part-title {
+  font-weight: 700;
+  font-size: 15px;
+  margin: 0 0 10px 0; /* Ép sát xuống khung lưới một chút */
+  text-transform: uppercase;
+}
+
+.p3-wrapper {
+  margin-top: 12px; /* Giảm từ 24px xuống 12px để kéo khối lên gần SBD hơn */
+}
+
+.p3-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--panel-bg);
+  border: 1.6px solid var(--border-color);
+  border-radius: var(--radius);
+  position: relative; 
+}
+
+.p3-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.p3-col:not(:last-child) {
+  border-right: 1.6px solid var(--border-color);
+}
+
+.p3-row {
+  display: flex;
+  align-items: center;
+  height: 43px; /* Thu hẹp nhẹ để đẩy đáy khung lên cao 70px */
+  padding: 0 12px;
+  border-bottom: 1.4px dotted var(--ink); 
+}
+
+.p3-row:last-child {
+  border-bottom: none;
+}
+
+.p3-num {
+  font-weight: 700;
+  font-size: 14px;
+  width: 32px; 
+} 
+
+/* --- CODE FIX LỖI KHI IN --- */
+@page { size: A4; margin: 0; }
+@media print {
+  body { padding: 0; background: #fff; }
+  .sheet { box-shadow: none; margin: 0; width: 210mm; height: 297mm; }
+}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <!-- 4 MARKER ĐỊNH VỊ GÓC -->
+  <span class="page-anchor pa-tl"></span>
+  <span class="page-anchor pa-tr"></span>
+  <span class="page-anchor pa-bl"></span>
+  <span class="page-anchor pa-br"></span>
+
+  <div class="sheet-header">
+    <p class="org-title">TRƯỜNG THPT ĐA PHÚC – DA PHUC OLYMPIAN SPIRIT</p>
+    <h1>PHIẾU TRẢ LỜI TỰ LUẬN</h1>
+    <p class="subtitle">Vòng loại Da Phuc Olympia Championship Mùa 5</p>
+    <p class="exam-date">Ngày thi: <span>15</span><span> / <span></span> 11 </span><span> / 2026</span></p>
+  </div>
+
+  <!-- ================= KHU VỰC THÔNG TIN & ĐIỂM ================= -->
+  <div class="top-section">
+    <!-- CỘT TRÁI -->
+    <div class="left-col">
+      <!-- Chữ ký giám thị (Thu gọn) -->
+      <div class="frame diem-box" style="min-height: auto;">
+        <div class="diem-label">Chữ ký giám thị</div>
+        <div class="diem-space" style="min-height: 40px;"></div>
+      </div>
+
+      <!-- Marker đánh dấu Trang 1 (Dàn hàng ngang, ép sát) -->
+      <div class="frame page-box">
+        <div class="side-title">Trang</div>
+        <div class="page-content">
+          <div class="pm-labels"><span>1</span><span>2</span><span>3</span></div>
+          <div class="pm-bubbles"><div class="bubble filled"></div><div class="bubble"></div><div class="bubble"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CỘT PHẢI (Thông tin 70% + Điểm 30%) -->
+    <div class="frame info-score-wrapper">
+      <div class="info-box">
+        <div class="info-row"><span class="num">1.</span> Họ và tên thí sinh: <span class="fill"></span></div>
+        <div class="info-row"><span class="num">2.</span> Trường - Lớp:<span class="fill"></span></div>
+      </div>
+      <div class="score-box">
+        <div class="score-label">Điểm</div>
+        <div class="score-space"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= KHU VỰC SỐ BÁO DANH ================= -->
+  <div class="frame sbd-container">
+    <!-- Tiêu đề xếp chồng dọc -->
+    <div class="side-title">
+      <span>Số</span>
+      <span>báo</span>
+      <span>danh</span>
+    </div>
+    
+    <div class="sbd-grid-wrapper">
+      <div class="sbd-h-grid">
+        <!-- Hàng Header (0 đến 9) -->
+        <div class="sbd-h-row">
+          <div></div> 
+          <div class="digit-head">0</div><div class="digit-head">1</div><div class="digit-head">2</div><div class="digit-head">3</div><div class="digit-head">4</div><div class="digit-head">5</div><div class="digit-head">6</div><div class="digit-head">7</div><div class="digit-head">8</div><div class="digit-head">9</div>
+        </div>
+
+        <!-- Hàng Hàng Trăm -->
+        <div class="sbd-h-row">
+          <div class="entry-cell"></div>
+          <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+        </div>
+
+        <!-- Hàng Hàng Chục -->
+        <div class="sbd-h-row">
+          <div class="entry-cell"></div>
+          <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+        </div>
+
+        <!-- Hàng Hàng Đơn vị -->
+        <div class="sbd-h-row">
+          <div class="entry-cell"></div>
+          <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- ================= KHU VỰC BÀI LÀM TỰ LUẬN ================= -->
+  <div class="p3-wrapper">
+    <p class="part-title">PHẦN III: TÍCH LŨY</p>
+    
+    <div class="p3-container">
+      
+      <!-- CỘT 1 (Câu 1 đến Câu 14) -->
+      <div class="p3-col">
+        <div class="p3-row"><span class="p3-num">1.</span></div>
+        <div class="p3-row"><span class="p3-num">2.</span></div>
+        <div class="p3-row"><span class="p3-num">3.</span></div>
+        <div class="p3-row"><span class="p3-num">4.</span></div>
+        <div class="p3-row"><span class="p3-num">5.</span></div>
+        <div class="p3-row"><span class="p3-num">6.</span></div>
+        <div class="p3-row"><span class="p3-num">7.</span></div>
+        <div class="p3-row"><span class="p3-num">8.</span></div>
+        <div class="p3-row"><span class="p3-num">9.</span></div>
+        <div class="p3-row"><span class="p3-num">10.</span></div>
+        <div class="p3-row"><span class="p3-num">11.</span></div>
+        <div class="p3-row"><span class="p3-num">12.</span></div>
+        <div class="p3-row"><span class="p3-num">13.</span></div>
+        <div class="p3-row"><span class="p3-num">14.</span></div>
+      </div>
+
+      <!-- CỘT 2 (Câu 15 đến Câu 28) -->
+      <div class="p3-col">
+        <div class="p3-row"><span class="p3-num">15.</span></div>
+        <div class="p3-row"><span class="p3-num">16.</span></div>
+        <div class="p3-row"><span class="p3-num">17.</span></div>
+        <div class="p3-row"><span class="p3-num">18.</span></div>
+        <div class="p3-row"><span class="p3-num">19.</span></div>
+        <div class="p3-row"><span class="p3-num">20.</span></div>
+        <div class="p3-row"><span class="p3-num">21.</span></div>
+        <div class="p3-row"><span class="p3-num">22.</span></div>
+        <div class="p3-row"><span class="p3-num">23.</span></div>
+        <div class="p3-row"><span class="p3-num">24.</span></div>
+        <div class="p3-row"><span class="p3-num">25.</span></div>
+        <div class="p3-row"><span class="p3-num">26.</span></div>
+        <div class="p3-row"><span class="p3-num">27.</span></div>
+        <div class="p3-row"><span class="p3-num">28.</span></div>
+      </div>
+
+      <!-- CỘT 3 (Câu 29 đến Câu 40) -->
+      <div class="p3-col">
+        <div class="p3-row"><span class="p3-num">29.</span></div>
+        <div class="p3-row"><span class="p3-num">30.</span></div>
+        <div class="p3-row"><span class="p3-num">31.</span></div>
+        <div class="p3-row"><span class="p3-num">32.</span></div>
+        <div class="p3-row"><span class="p3-num">33.</span></div>
+        <div class="p3-row"><span class="p3-num">34.</span></div>
+        <div class="p3-row"><span class="p3-num">35.</span></div>
+        <div class="p3-row"><span class="p3-num">36.</span></div>
+        <div class="p3-row"><span class="p3-num">37.</span></div>
+        <div class="p3-row"><span class="p3-num">38.</span></div>
+        <div class="p3-row"><span class="p3-num">39.</span></div>
+        <div class="p3-row"><span class="p3-num">40.</span></div>
+        
+        <!-- 2 ô cuối để trống cho vuông vắn 3 cột -->
+        <div class="p3-row"><span class="p3-num"></span></div>
+        <div class="p3-row"><span class="p3-num"></span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
