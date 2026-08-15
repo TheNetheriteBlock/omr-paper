@@ -4,7 +4,7 @@
       "name": "CropOnMarkers",
       "options": {
         "relativePath": "omr_marker.jpg",
-        "sheetToMarkerWidthRatio": 10.73
+        "sheetToMarkerWidthRatio": 21.46
       }
     }
   ],
@@ -14,15 +14,15 @@
   ],
   "bubbleDimensions": [
     16,
-    16
+    15
   ],
   "customLabels": {},
   "emptyValue": "",
   "fieldBlocks": {
     "SoBaoDanh": {
       "origin": [
-        620,
-        160
+        619,
+        162
       ],
       "bubblesGap": 21,
       "labelsGap": 30,
@@ -47,7 +47,7 @@
     },
     "Phan_I_Cau_1_6": {
       "origin": [
-        40,
+        43,
         452
       ],
       "bubblesGap": 28,
@@ -70,7 +70,7 @@
     },
     "Phan_I_Cau_7_12": {
       "origin": [
-        196,
+        198,
         452
       ],
       "bubblesGap": 28,
@@ -93,8 +93,8 @@
     },
     "Phan_II_Cau_1": {
       "origin": [
-        414,
-        488
+        412,
+        489
       ],
       "bubblesGap": 45,
       "labelsGap": 25,
@@ -112,8 +112,8 @@
     },
     "Phan_II_Cau_2": {
       "origin": [
-        604,
-        488
+        603,
+        489
       ],
       "bubblesGap": 45,
       "labelsGap": 25,
@@ -131,8 +131,8 @@
     },
     "Phan_VII_Cau_1": {
       "origin": [
-        55,
-        709
+        58,
+        707
       ],
       "bubblesGap": 26,
       "labelsGap": 22,
@@ -152,8 +152,8 @@
     },
     "Phan_VII_Cau_2": {
       "origin": [
-        235,
-        709
+        239,
+        705
       ],
       "bubblesGap": 26,
       "labelsGap": 22,
@@ -173,8 +173,8 @@
     },
     "Phan_VII_Cau_3": {
       "origin": [
-        420,
-        709
+        419,
+        707
       ],
       "bubblesGap": 26,
       "labelsGap": 22,
@@ -194,8 +194,8 @@
     },
     "Phan_VII_Cau_4": {
       "origin": [
-        601,
-        709
+        600,
+        708
       ],
       "bubblesGap": 26,
       "labelsGap": 22,
@@ -215,8 +215,8 @@
     },
     "Phan_VII_Cau_5": {
       "origin": [
-        56,
-        889
+        57,
+        886
       ],
       "bubblesGap": 27,
       "labelsGap": 22,
@@ -241,8 +241,7 @@
     "Phan_VII_Cau_6": {
       "origin": [
         299,
-        889
-      ],
+        886      ],
       "bubblesGap": 27,
       "labelsGap": 22,
       "fieldLabels": [
@@ -266,7 +265,7 @@
     "Phan_VII_Cau_7": {
       "origin": [
         541,
-        889
+        886
       ],
       "bubblesGap": 27,
       "labelsGap": 22,
