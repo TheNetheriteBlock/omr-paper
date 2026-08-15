@@ -76,14 +76,22 @@ body {
 .top-section {
   display:grid;
   grid-template-columns: 150px 1fr;
-  gap:20px;
+  gap:15px;
   align-items:stretch;
   margin-bottom:12px;
 }
-.left-col { display:flex; flex-direction:column; gap:12px; }
+.left-col { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 10px; 
+}
 
 /* Ô Chữ ký & Ô Trang (Đã bỏ min-height để thu gọn tối đa) */
-.diem-box { display:flex; flex-direction:column; }
+.diem-box { 
+  display: flex; 
+  flex-direction: column; 
+  flex: 1; 
+}
 .diem-box .diem-label {
   text-align:center; font-weight:700; font-size:13px;
   padding:5px; border-bottom:1.4px solid var(--border-color);
@@ -137,11 +145,11 @@ body {
 
 .info-box {
   flex: 0 0 70%;
-  padding: 16px 20px;
+  padding: 10px 16px; /* Giảm padding trên/dưới */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px; 
+  gap: 12px; /* Giảm khoảng cách giữa các dòng chữ */
 }
 .info-row {
   display: block;
@@ -152,7 +160,7 @@ body {
 .info-row .fill {
   display: block;
   border-bottom: 1.5px dotted var(--ink);
-  height: 22px;
+  height: 26px; /* Tăng từ 16px lên 26px để nới rộng không gian viết */
   width: 100%;
 }
 
@@ -168,42 +176,7 @@ body {
 }
 .score-box .score-space { flex:1; }
 
-/* ================= HỆ THỐNG MARKER CHO TRANG & SBD ================= */
 
-/* 1. Marker cho khung Trang (Bay lơ lửng ở trên) */
-.page-box::before, .page-box::after {
-  content: "";
-  position: absolute;
-  top: -18px;
-  width: var(--dot-size);
-  height: var(--dot-size);
-  background: var(--ink);
-}
-.page-box::before { left: -1.6px; }
-.page-box::after { right: -1.6px; }
-
-/* 2. Marker cho khung SBD (Nằm lọt thỏm BÊN TRONG phần lưới) */
-.sbd-grid-wrapper {
-  position: relative; /* Kích hoạt tọa độ để neo marker vào bên trong wrapper */
-}
-.sbd-grid-wrapper::before, .sbd-grid-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 6px; /* Đẩy xuống 6px cho cách viền trên một chút */
-  width: var(--dot-size);
-  height: var(--dot-size);
-  background: var(--ink);
-}
-.sbd-grid-wrapper::before { left: 10px; } /* Căn cùng hàng với lề padding trái */
-.sbd-grid-wrapper::after { right: 10px; } /* Căn cùng hàng với lề padding phải */
-
-/* ================= KHUNG TRANG (BỐ CỤC NGANG ÉP MỎNG) ================= */
-.page-box {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  margin-top: 12px; /* Đẩy nguyên khối này xuống để marker không cắn vào viền trên */
-}
 /* ================= SBD DÀN NGANG (CỘT TIÊU ĐỀ DỌC) ================= */
 
 .sbd-container {
@@ -223,7 +196,7 @@ body {
   grid-template-columns: 30px repeat(10, minmax(22px, 32px));
   justify-content: center;
   column-gap: 16px; 
-  row-gap: 4px;     
+  row-gap: 8px; /* Tăng khoảng cách dòng lên 12px */
   align-items: center;
 }
 .sbd-h-row { display: contents; }
@@ -251,12 +224,12 @@ body {
 .part-title {
   font-weight: 700;
   font-size: 15px;
-  margin: 0 0 10px 0; /* Ép sát xuống khung lưới một chút */
+  margin: 0 0 10px 0; 
   text-transform: uppercase;
 }
 
 .p3-wrapper {
-  margin-top: 12px; /* Giảm từ 24px xuống 12px để kéo khối lên gần SBD hơn */
+  margin-top: 12px; 
 }
 
 .p3-container {
@@ -280,7 +253,7 @@ body {
 .p3-row {
   display: flex;
   align-items: center;
-  height: 43px; /* Thu hẹp nhẹ để đẩy đáy khung lên cao 70px */
+  height: 44px; 
   padding: 0 12px;
   border-bottom: 1.4px dotted var(--ink); 
 }
