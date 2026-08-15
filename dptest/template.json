@@ -1,7 +1,16 @@
 {
+  "preProcessors": [
+    {
+      "name": "CropOnMarkers",
+      "options": {
+        "relativePath": "omr_marker.jpg",
+        "sheetToMarkerWidthRatio": 10.73
+      }
+    }
+  ],
   "pageDimensions": [
-    794,
-    1123
+    730,
+    1059
   ],
   "bubbleDimensions": [
     16,
@@ -12,11 +21,11 @@
   "fieldBlocks": {
     "SoBaoDanh": {
       "origin": [
-        644,
-        208
+        620,
+        160
       ],
-      "bubblesGap": 16,
-      "labelsGap": 34,
+      "bubblesGap": 21,
+      "labelsGap": 30,
       "fieldLabels": [
         "sbd1",
         "sbd2",
@@ -38,11 +47,11 @@
     },
     "Phan_I_Cau_1_6": {
       "origin": [
-        88,
-        493
+        40,
+        452
       ],
       "bubblesGap": 28,
-      "labelsGap": 18,
+      "labelsGap": 22,
       "fieldLabels": [
         "q1",
         "q2",
@@ -61,11 +70,11 @@
     },
     "Phan_I_Cau_7_12": {
       "origin": [
-        245,
-        493
+        196,
+        452
       ],
       "bubblesGap": 28,
-      "labelsGap": 18,
+      "labelsGap": 22,
       "fieldLabels": [
         "q7",
         "q8",
@@ -84,11 +93,11 @@
     },
     "Phan_II_Cau_1": {
       "origin": [
-        455,
-        519
+        414,
+        488
       ],
       "bubblesGap": 45,
-      "labelsGap": 21,
+      "labelsGap": 25,
       "fieldLabels": [
         "q1_1",
         "q1_2",
@@ -103,11 +112,11 @@
     },
     "Phan_II_Cau_2": {
       "origin": [
-        629,
-        519
+        604,
+        488
       ],
       "bubblesGap": 45,
-      "labelsGap": 21,
+      "labelsGap": 25,
       "fieldLabels": [
         "q2_1",
         "q2_2",
@@ -122,11 +131,11 @@
     },
     "Phan_VII_Cau_1": {
       "origin": [
-        103,
-        748
+        55,
+        709
       ],
-      "bubblesGap": 24,
-      "labelsGap": 18,
+      "bubblesGap": 26,
+      "labelsGap": 22,
       "fieldLabels": [
         "p7c1_1",
         "p7c1_2",
@@ -143,11 +152,11 @@
     },
     "Phan_VII_Cau_2": {
       "origin": [
-        278,
-        748
+        235,
+        709
       ],
-      "bubblesGap": 24,
-      "labelsGap": 18,
+      "bubblesGap": 26,
+      "labelsGap": 22,
       "fieldLabels": [
         "p7c2_1",
         "p7c2_2",
@@ -164,11 +173,11 @@
     },
     "Phan_VII_Cau_3": {
       "origin": [
-        451,
-        748
+        420,
+        709
       ],
-      "bubblesGap": 24,
-      "labelsGap": 18,
+      "bubblesGap": 26,
+      "labelsGap": 22,
       "fieldLabels": [
         "p7c3_1",
         "p7c3_2",
@@ -185,11 +194,11 @@
     },
     "Phan_VII_Cau_4": {
       "origin": [
-        625,
-        748
+        601,
+        709
       ],
-      "bubblesGap": 24,
-      "labelsGap": 18,
+      "bubblesGap": 26,
+      "labelsGap": 22,
       "fieldLabels": [
         "p7c4_1",
         "p7c4_2",
@@ -206,11 +215,11 @@
     },
     "Phan_VII_Cau_5": {
       "origin": [
-        104,
-        913
+        56,
+        889
       ],
-      "bubblesGap": 25,
-      "labelsGap": 18,
+      "bubblesGap": 27,
+      "labelsGap": 22,
       "fieldLabels": [
         "p7c5_1",
         "p7c5_2",
@@ -231,11 +240,11 @@
     },
     "Phan_VII_Cau_6": {
       "origin": [
-        335,
-        913
+        299,
+        889
       ],
-      "bubblesGap": 25,
-      "labelsGap": 18,
+      "bubblesGap": 27,
+      "labelsGap": 22,
       "fieldLabels": [
         "p7c6_1",
         "p7c6_2",
@@ -256,11 +265,11 @@
     },
     "Phan_VII_Cau_7": {
       "origin": [
-        568,
-        913
+        541,
+        889
       ],
-      "bubblesGap": 25,
-      "labelsGap": 18,
+      "bubblesGap": 27,
+      "labelsGap": 22,
       "fieldLabels": [
         "p7c7_1",
         "p7c7_2",

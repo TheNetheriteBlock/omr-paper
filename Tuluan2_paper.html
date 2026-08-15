@@ -59,7 +59,7 @@ body {
   background:var(--panel-bg);
 }
 
-/* ================= BỐ CỤC KHU VỰC ĐẦU TRANG (ĐÃ GỘP TIÊU ĐỀ) ================= */
+/* ================= BỐ CỤC KHU VỰC ĐẦU TRANG ================= */
 .top-section {
   display:grid;
   grid-template-columns: 150px 1fr;
@@ -96,7 +96,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  margin-top: 12px; 
+  margin-top: 0; /* Xóa margin-top để kéo sát lại khung trên */
 }
 .page-content {
   flex: 1;
@@ -114,7 +114,7 @@ body {
 }
 .pm-labels span { font-size: 13px; font-weight: 700; }
 
-/* Khung Tiêu Đề Bài Thi (Thay thế cho khung thông tin cũ) */
+/* Khung Tiêu Đề Bài Thi */
 .header-box {
   display: flex;
   flex-direction: column;
@@ -127,33 +127,6 @@ body {
 .header-box .subtitle { font-size:15px; font-weight:600; margin:0 0 4px; }
 .header-box .exam-date { font-size:13px; margin:0; }
 
-
-/* ================= HỆ THỐNG MARKER CHO TRANG & SBD ================= */
-.page-box::before, .page-box::after {
-  content: "";
-  position: absolute;
-  top: -18px;
-  width: var(--dot-size);
-  height: var(--dot-size);
-  background: var(--ink);
-}
-.page-box::before { left: -1.6px; }
-.page-box::after { right: -1.6px; }
-
-.sbd-grid-wrapper {
-  position: relative; 
-}
-.sbd-grid-wrapper::before, .sbd-grid-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 6px; 
-  width: var(--dot-size);
-  height: var(--dot-size);
-  background: var(--ink);
-}
-.sbd-grid-wrapper::before { left: 10px; } 
-.sbd-grid-wrapper::after { right: 10px; } 
-
 /* ================= SBD DÀN NGANG ================= */
 .sbd-container {
   display: flex;
@@ -165,14 +138,14 @@ body {
   flex: 1;
   display: flex;
   justify-content: center;
-  padding: 16px 10px 8px 10px;
+  padding: 8px 10px 8px 10px;
 }
 .sbd-h-grid {
   display: grid;
   grid-template-columns: 30px repeat(10, minmax(22px, 32px));
   justify-content: center;
   column-gap: 16px;
-  row-gap: 4px;  
+  row-gap: 8px;  /* Nâng khoảng cách dòng lên 8px */
   align-items: center;
 }
 .sbd-h-row { display: contents; }
@@ -218,10 +191,9 @@ body {
 /* ================= BỐ CỤC PHẦN V (GỘP CHUNG CNV VÀ HÀNG NGANG - 2 CỘT) ================= */
 .pv-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Mở rộng diện tích bằng cách chia 2 cột */
-  /* Tách riêng 2 thông số để dễ chỉnh sửa */
-  column-gap: 10px; /* Khoảng cách ngang (trái - phải) giữa 2 cột */
-  row-gap: 15px;    /* THAY ĐỔI SỐ NÀY để tăng/giảm khoảng cách trên - dưới */
+  grid-template-columns: repeat(2, 1fr); 
+  column-gap: 10px; 
+  row-gap: 15px;    
   margin-bottom: 30px;
   align-items: start;
 }
@@ -248,8 +220,8 @@ body {
   align-items: center;
   height: 48px;
   padding: 0 12px;
-  border-bottom: 1.6px dashed var(--border-color); /* Kẻ nét đứt to để phân tách với Hàng ngang */
-  background: rgba(0, 0, 0, 0.03); /* Phủ lớp nền xám cực nhẹ để nhấn mạnh ô CNV */
+  border-bottom: 1.6px dashed var(--border-color); 
+  background: rgba(0, 0, 0, 0.03); 
 }
 
 /* Các dòng ghi Hàng ngang */

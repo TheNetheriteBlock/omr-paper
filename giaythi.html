@@ -6,17 +6,17 @@
 <title>Phiếu trả lời trắc nghiệm</title>
 <style>
 
-:root{
-  --border-color:   #2c4a52;   /* màu viền khung */
-  --frame-bg:       #c6ecda;   /* màu nền khu vực trả lời (đổi thành #ffffff hoặc transparent nếu muốn in trắng đen tiết kiệm mực) */
-  --panel-bg:       #ffffff;   /* màu nền khu vực thông tin/điểm */
-  --ink:            #1a1a1a;   /* màu chữ, đường viền ô tròn, marker */
-  --bubble-size:    15px;      /* đường kính ô tròn đáp án */
-  --bubble-border:  1.4px;     /* độ dày viền ô tròn */
-  --anchor-size:    25px;       /* kích thước marker ở 4 GÓC GIẤY A4 (quan trọng nhất cho OMR) */
-  --dot-size:       10px;       /* kích thước marker nhỏ đánh dấu ranh giới giữa các khối câu hỏi */
-  --radius:         4px;       /* độ bo góc khung */
-  --gap-row:        3px;       /* khoảng cách giữa các dòng câu hỏi */
+:root {
+  --border-color:   #2c4a52;
+  --frame-bg:       #c6ecda;
+  --panel-bg:       #ffffff;
+  --ink:            #1a1a1a;
+  --bubble-size:    15px;
+  --bubble-border:  1.4px;
+  --anchor-size:    25px;
+  --dot-size:       10px;
+  --radius:         4px;
+  --gap-row:        7px; /* Sửa dòng này từ 3px lên 5px */
 }
 
 *{ box-sizing:border-box; }
@@ -30,17 +30,16 @@ body{
 }
 
 .sheet{
-  width: 794px;         /* 210mm * 3.78 */
-  min-height: 1123px;   /* 297mm * 3.78 (Khổ A4 tiêu chuẩn) */
+  width: 794px;
+  min-height: 1123px;
   margin: 0 auto;
   background: #fff;
   box-shadow: 0 0 14px rgba(0,0,0,.25);
-  padding: 53px 45px;   /* 14mm -> 53px, 12mm -> 45px */
-  position: relative;   /* để 4 marker góc giấy định vị theo đúng khổ A4 */
+  padding: 53px 45px;
+  position: relative;
 }
 
-/* ---------- 4 MARKER Ở GÓC GIẤY A4 (quan trọng nhất, dùng để phần mềm
-   OMR canh thẳng/khử nghiêng cả trang khi quét) ---------- */
+/* ---------- 4 MARKER Ở GÓC GIẤY A4 (giữ lại) ---------- */
 .page-anchor{
   position:absolute;
   width:var(--anchor-size); height:var(--anchor-size);
@@ -51,21 +50,13 @@ body{
 .page-anchor.pa-bl{ bottom:20px; left:20px; }
 .page-anchor.pa-br{ bottom:20px; right:20px; }
 
-/* ---------- Marker nhỏ đánh dấu RANH GIỚI giữa các khối câu hỏi (không
-   gắn vào từng khung nhỏ nữa — chỉ đặt ở nơi có ý nghĩa phân vùng) ---------- */
-.rail{ position:relative; height:var(--dot-size); margin:4px 0 8px; }
-.rail .dot{ position:absolute; top:0; width:var(--dot-size); height:var(--dot-size); background:var(--ink); }
-.rail .dot.at-0{ left:0; }
-.rail .dot.at-50{ left:calc(50% - (var(--dot-size) / 2)); }
-.rail .dot.at-100{ right:0; }
-
 /* ---------- Tiêu đề ---------- */
 .sheet-header{ text-align:center; margin-bottom:14px; }
 .sheet-header .org-title {
   font-size: 20px;
   font-weight: 700;
   text-transform: uppercase;
-  margin: 0 0 8px 0; /* Khoảng cách đẩy xuống chữ BÀI THI TỰ LUẬN */
+  margin: 0 0 8px 0;
   letter-spacing: 0.5px;
 }
 .sheet-header h1{
@@ -85,7 +76,7 @@ body{
 }
 .fill-line{ display:inline-block; min-width:26px; border-bottom:1px solid var(--ink); }
 
-/* ---------- Khung dùng chung (không còn marker riêng ở từng khung) ---------- */
+/* ---------- Khung dùng chung ---------- */
 .frame{
   position:relative;
   border:1.6px solid var(--border-color);
@@ -123,51 +114,46 @@ body{
 
 .info-box{ padding:16px 16px; }
 .info-row {
-  display: block; /* Đổi thành block để tự động ngắt dòng */
+  display: block;
   font-size: 13.5px;
-  font-weight: 700; /* In đậm toàn bộ tiêu đề */
-  margin-bottom: 10px; /* Khoảng cách giữa các mục (Họ tên, Trường...) */
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 .info-row .num{ font-weight:700; white-space:nowrap; }
 .info-row .fill { 
-  display: block; /* Ép dòng kẻ đứt xuống một dòng riêng biệt */
+  display: block;
   border-bottom: 1.5px dotted var(--ink); 
-  height: 21px; /* Chiều cao từ chữ xuống dòng kẻ */
-  width: 100%; /* Dòng kẻ kéo dài tối đa */
+  height: 21px;
+  width: 100%;
 }
-.sbd-box{ padding:5px 9px; }
+.sbd-box{ padding: 8px 12px 14px 12px;}
 
-.sbd-title{ text-align:center; font-weight:700; font-size:13px; margin-bottom:2px; }
-.sbd-entry { 
+.sbd-title { 
+  text-align: center; 
+  font-weight: 700; 
+  font-size: 13px; 
+  margin-bottom: 8px; /* Đẩy tiêu đề cách xa khối lưới một chút */
+}
+.sbd-grid { 
   display: grid; 
-  /* Dùng chung tỷ lệ chia cột giống hệt .sbd-grid bên dưới */
-  grid-template-columns: 16px repeat(3, 1fr); 
-  align-items: center;
-  margin-bottom: 5px; 
+  grid-template-columns: 24px repeat(3, 1fr); 
+  row-gap: 6px; /* Lệnh này quyết định khoảng cách đều tăm tắp cho TOÀN BỘ các hàng */
+  align-items: center; 
 }
-.sbd-entry .entry-cell { 
-  height: 18px; 
-  width: 28px; /* Đặt chiều rộng cố định cho ô vuông */
-  justify-self: center; /* Lệnh này bắt buộc ô vuông phải nằm ngay giữa cột, thẳng tắp với ô tròn */
-  border: 1.2px solid var(--ink); 
-  background: #fff; 
+.digit-label { 
+  font-size: 11px; 
+  font-weight: 700; 
+  text-align: center; 
 }
-.sbd-grid{ display:grid; grid-template-columns:16px repeat(3,1fr); row-gap:1px; align-items:center; }
 .sbd-grid .digit-label{ font-size:11px; font-weight:700; text-align:center; }
 .x-mark {
-  font-family: Arial, sans-serif; /* Dùng font không chân cho chữ X trông cứng cáp hơn */
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 18px; /* Căn cho cao bằng với ô vuông bên cạnh */
-  color: var(--ink);
-}
-.x-mark-small {
   font-family: Arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
-  text-align: center; /* Đổi từ left sang center */
+  text-align: center;
+  color: var(--ink);
 }
+
 /* ---------- Ô tròn đáp án dùng chung ---------- */
 .bubble{
   width:var(--bubble-size); height:var(--bubble-size);
@@ -179,13 +165,10 @@ body{
 .bubble.filled{ background:var(--ink); }
 
 /* ---------- Khu vực trả lời (nền màu) ---------- */
-.answer-panel{
-  background:var(--frame-bg);
-  border-radius:8px;
-  padding:16px;
-}
+
 .answer-section {
-  display: block; /* Hủy chế độ chia 2 cột dọc */
+  display: block;
+  margin-top: 25px;
 }
 
 .row-top {
@@ -195,11 +178,11 @@ body{
 }
 
 .part-two {
-  flex: 1; /* Phần II tự động co giãn lấp đầy khoảng trống còn lại */
+  flex: 1;
 }
 
 .part-one {
-  flex: 0 0 302px; /* Giữ cố định chiều rộng Phần I */
+  flex: 0 0 302px;
 }
 
 .part-one, .part-two {
@@ -213,8 +196,6 @@ body{
 }
 .part-title.spaced{ margin-top:16px; }
 
-/* Khối câu hỏi dùng chung (Phần I, Phần III, ví dụ hướng dẫn...) — luôn là
-   display:grid ở đây, các khung riêng bên dưới chỉ override số cột/độ rộng. */
 .qhead{
   display:grid; grid-template-columns:10px repeat(var(--cols,4),1fr);
   text-align:center; font-weight:700; font-size:11px; margin-bottom:6px;
@@ -225,19 +206,14 @@ body{
 }
 .qrow .qnum{ font-size:12px; font-weight:600; text-align:left; }
 .p1-row{ display:flex; gap:12px; align-items:flex-start; } 
-.rail-p1 { 
-  width: 302px; /* 145px + 12px gap + 145px = 302px */
-}
 
 .p1-row, .tf-frame {
-  flex: 1; /* Lệnh này bắt buộc 2 khung (dù nội dung ngắn/dài) phải kéo giãn cao bằng nhau */
+  flex: 1;
 }
 
-
-.rail-p1 .dot.at-50{ left:157px; }
 .qgrid{ padding:8px 10px; }
 #p1-main, #p1-extra { 
-  width: 145px; /* Cho 2 cột rộng bằng nhau */
+  width: 145px;
 }
 
 .p2-row{ display:flex; gap: 12px; }
@@ -245,53 +221,39 @@ body{
   display: flex;
   flex-direction: column;
   padding: 0; 
-  /* (Lưu ý: Đã xóa lệnh justify-content: center cũ ở đây để không bị co vào giữa nữa) */
 }
 
 .tf-pair {
-  flex: 1; /* Kéo giãn khối câu hỏi để lấp đầy toàn bộ chiều cao của khung */
+  flex: 1;
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: stretch; /* Đảm bảo đường kẻ dọc kéo thẳng tắp từ top xuống bottom */
+  align-items: stretch;
 }
 
-/* ================= ĐẨY LÊN TOP & TỰ ĐỘNG GIÃN CÁCH ================= */
-/* ================= KÉO KHUNG LÊN TOP ================= */
 .tf-block {
   flex: 1; 
   display: flex;
   flex-direction: column;
   justify-content: space-between; 
-  /* Giảm padding-top từ 12px xuống 4px để đẩy toàn bộ nội dung lên sát mép trên */
-  /* Giảm padding-bottom xuống 12px để cân bằng khoảng trống ở đáy */
   padding: 0 0 12px 0; 
 }
 
-/* ================= TẠO THANH NGANG ================= */
 .tf-block-title {
   text-align: center;
   font-weight: 700;
   font-size: 13px;
   margin-bottom: 0;
   padding-top: 6px;
-  /* Thêm khoảng cách từ chữ "Câu 1/Câu 2" xuống đường kẻ ngang */
   padding-bottom: 6px; 
-  /* Tạo đường kẻ ngang nét liền, màu đồng bộ với viền khung */
   border-bottom: 1.4px solid var(--border-color); 
 }
 .tf-block + .tf-block {
-  border-left: 1.4px solid var(--border-color); /* Đường kẻ dọc nằm ngay chính giữa 2 câu */
-}
-.tf-block-title {
-  text-align: center;
-  font-weight: 700;
-  font-size: 13px;
-  margin-bottom: 0; 
+  border-left: 1.4px solid var(--border-color);
 }
 .tf-block .tf-head, 
 .tf-block .tf-row {
-  margin-bottom: 0; /* Xóa margin cũ */
+  margin-bottom: 0;
 }
 .tf-head{ display:grid; grid-template-columns:16px 1fr 1fr; font-size:10px; font-weight:700; text-align:center; margin-bottom:3px; }
 .tf-row{ display:grid; grid-template-columns:16px 1fr 1fr; align-items:center; margin-bottom:var(--gap-row); }
@@ -301,27 +263,25 @@ body{
 }
 .tf-head, .tf-row {
   display: grid;
-  /* Chia 3 cột: Cột chữ số (30px) | Cột Đúng (45px) | Cột Sai (45px) */
   grid-template-columns: 30px 45px 45px; 
   justify-content: center;
   align-items: center;
 }
 .row-bottom {
-  margin-top: 35px; /* Đẩy toàn bộ Phần III xuống xa hơn so với hàng trên */
+  margin-top: 35px;
 }
 
-/* PHẦN III — rail 3 chấm giữa cụm cột trái (C1,C2) / cụm cột phải (C3,C4) */
 .c-quad{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
 .c-quad-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px; /* Tăng khoảng cách ngang giữa các khung C1, C2, C3, C4 */
-  margin-bottom: 24px; /* Tăng khoảng cách dọc giữa hàng C1-C4 và hàng C5-C7 */
+  gap: 24px;
+  margin-bottom: 24px;
 }
 .c-wide-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px; /* Tăng khoảng cách ngang giữa các khung C5, C6, C7 */
+  gap: 24px;
 }
 .c-box{ padding:12px 14px; }
 .c-box .qhead, .c-box .qrow{ grid-template-columns:22px repeat(var(--cols,4),1fr); }
@@ -362,35 +322,19 @@ body{
 .guide-example{ padding:6px 8px; width:150px; }
 .essay-note{ font-style:italic; font-weight:700; font-size:15px; white-space:nowrap; }
 
-
-.row-bottom .frame::before { left: -1.6px; }
-.row-bottom .frame::after { right: -1.6px; }
-
-.tf-pair::before {
-  content: "";
-  position: absolute;
-  top: -18px; /* Khớp tuyệt đối với độ cao của các marker góc */
-  left: calc(50% - (var(--dot-size) / 2)); /* Căn lùi lại một nửa thân marker để nó nằm ngay chính giữa */
-  width: var(--dot-size);
-  height: var(--dot-size);
-  background: var(--ink);
-}
-
-
-/* --- CODE FIX LỖI KHI IN --- */
 @page {
   size: A4;
-  margin: 0; /* Xóa lề mặc định của trình duyệt để bản in vừa khít mép giấy */
+  margin: 0;
 }
 
 @media print {
   body {
-    padding: 0; /* Xóa khoảng trống thừa của body khi in */
+    padding: 0;
     background: #fff;
   }
   
   .sheet {
-    box-shadow: none; /* Ẩn bóng đổ để file PDF/giấy in sạch sẽ hơn */
+    box-shadow: none;
     margin: 0;
     width: 210mm;
     height: 297mm;
@@ -398,49 +342,6 @@ body{
     page-break-inside: avoid;
   }
 }
-/* ================== HỆ THỐNG MARKER LOẠI 3 (TỰ ĐỘNG) ================== */
-/* Áp dụng cho 2 góc trên của TẤT CẢ các khung trong khu vực làm bài */
-.answer-section .frame::before,
-.answer-section .frame::after {
-  content: "";
-  position: absolute;
-  top: -18px; 
-  width: var(--dot-size);  
-  height: var(--dot-size); 
-  background: var(--ink);
-}
-
-.answer-section .frame::before { left: -1.6px; }
-.answer-section .frame::after { right: -1.6px; }
-
-/* Đẩy các chữ "PHẦN I", "PHẦN II", "PHẦN VII" lên cao để không bị đè vào Marker */
-.part-title {
-  font-weight: 700; 
-  font-size: 15px;
-  margin: 0 0 28px; 
-}
-
-/* Marker riêng cho Số báo danh */
-.sbd-box::after {
-  content: "";
-  position: absolute;
-  top: -18px;
-  left: -1.6px;
-  width: var(--dot-size);
-  height: var(--dot-size);
-  background: var(--ink);
-}
-
-.sbd-box::before {
-  content: "";
-  position: absolute;
-  top: -18px;
-  right: -1.6px;
-  width: var(--dot-size);
-  height: var(--dot-size);
-  background: var(--ink);
-}
-
 </style>
 </head>
 <body>
@@ -458,39 +359,30 @@ body{
     <p class="exam-date">Ngày thi: <span>15</span><span> / <span></span> 11 </span><span> / 2026</span></p>
   </div>
 
-  <!-- ================= HÀNG TRÊN: Điểm / X-box / Thông tin / SBD ================= -->
   <div class="top-section">
 <div class="left-col">
-    <!-- Ô Điểm gốc -->
     <div class="frame diem-box">
         <div class="diem-label">Điểm</div>
         <div class="diem-space"></div>
     </div>
 
-    <!-- Ô mới được thêm vào ngay bên dưới -->
     <div class="frame diem-box" style="margin-top: 10px;">
         <div class="diem-label">Chữ ký giám thị</div>
         <div class="diem-space"></div>
     </div>
 </div>
     
-
     <div class="frame info-box">
       <div class="info-row"><span class="num">1.</span> Họ và tên thí sinh: <span class="fill"></span></div>
       <div class="info-row"><span class="num">2.</span> Trường:<span class="fill"></span></div>
       <div class="info-row"><span class="num">3.</span> Lớp: <span class="fill"></span></div>
-      <div class="info-row"><span class="num">4.</span> Chữ ký của thí sinh: <span class="fill"></span></div>
+      <div class="info-row"><span class="num">4.</span> Số báo danh thí sinh: <span class="fill"></span></div>
     </div>
 
-    <div class="frame sbd-box" style="--cols:3">
+    <div class="frame sbd-box">
       <div class="sbd-title">Số báo danh</div>
-      <div class="sbd-entry">
-        <div class="x-mark">X</div>
-        <div class="entry-cell"></div><div class="entry-cell"></div><div class="entry-cell"></div>
-      </div>
       <div class="sbd-grid">
-        <div></div><div></div><div></div><div></div>
-        <!-- 10 hàng số 0-9, mỗi hàng: nhãn số + 3 ô tròn -->
+        <!-- Hàng bong bóng 0 - 9 -->
         <div class="digit-label">0</div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
         <div class="digit-label">1</div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
         <div class="digit-label">2</div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
@@ -502,30 +394,17 @@ body{
         <div class="digit-label">8</div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
         <div class="digit-label">9</div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
       </div>
-    </div>
-
+    </div>  
   </div>
 
-  <!-- Rail đánh dấu ranh giới đầu khu vực trả lời (giữa khối thông tin và Phần I) -->
-  <div class="rail">
-    <span class="dot at-0"></span><span class="dot at-100"></span>
-  </div>
-
-  <!-- ================= KHU VỰC TRẢ LỜI ================= -->
-  <div class="answer-panel">
-  <!-- ================= KHU VỰC TRẢ LỜI ================= -->
 <div class="answer-section">
 
-  <!-- HÀNG TRÊN: PHẦN I & PHẦN II ngang nhau -->
   <div class="row-top">
-    <!-- CỘT TRÁI: Phần I -->
     <div class="part-one">
       <p class="part-title">PHẦN I. KHỞI ĐỘNG</p>
-      
       <div class="p1-row">
         <div class="frame qgrid" id="p1-main" style="--cols:4">
           <div class="qhead"><div></div><div>A</div><div>B</div><div>C</div><div>D</div></div>
-          <!-- Câu 1-6 -->
           <div class="qrow"><span class="qnum">1</span><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div>
           <div class="qrow"><span class="qnum">2</span><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div>
           <div class="qrow"><span class="qnum">3</span><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div>
@@ -536,7 +415,6 @@ body{
 
         <div class="frame qgrid" id="p1-extra" style="--cols:4">
           <div class="qhead"><div></div><div>A</div><div>B</div><div>C</div><div>D</div></div>
-          <!-- Câu 7-12 -->
           <div class="qrow"><span class="qnum">7</span><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div>
           <div class="qrow"><span class="qnum">8</span><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div>
           <div class="qrow"><span class="qnum">9</span><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div>
@@ -547,10 +425,8 @@ body{
       </div>
     </div>
 
-    <!-- CỘT PHẢI: Phần II -->
     <div class="part-two">
       <p class="part-title">PHẦN II. THỬ THÁCH</p>
-
       <div class="frame tf-frame">
         <div class="tf-pair">
           <div class="tf-block">
@@ -574,12 +450,9 @@ body{
     </div>
   </div>
 
-  <!-- HÀNG DƯỚI: PHẦN III trải dài toàn bộ chiều ngang -->
   <div class="row-bottom">
     <p class="part-title">PHẦN VII: CHẶNG ĐUA QUYẾT ĐỊNH</p>
     
-
-    <!-- C1 đến C4 (4 khung xếp dàn đều trên 1 hàng ngang) -->
     <div class="c-quad-row">
       <div class="frame c-box" style="--cols:4">
         <div class="c-block-title">Câu 1</div>
@@ -615,7 +488,6 @@ body{
       </div>
     </div>
 
-    <!-- C5 đến C7 (3 khung to dàn đều trên 1 hàng ngang) -->
     <div class="c-wide-row">
       <div class="frame c-wide" id="c5" style="--cols:6">
         <div class="c-block-title">Câu 5</div>
@@ -637,7 +509,6 @@ body{
         <div class="qrow"><span class="qnum">5</span><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div>
         <div class="qrow"><span class="qnum">6</span><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div>
       </div>
-      <!-- Đã bổ sung thêm C7 -->
       <div class="frame c-wide" id="c7" style="--cols:6">
         <div class="c-block-title">Câu 7</div>
         <div class="qhead"><span class="qtag"></span><div>A</div><div>B</div><div>C</div><div>D</div><div>E</div><div>F</div></div>
