@@ -1,0 +1,66 @@
+{
+  "preProcessors": [
+    {
+      "name": "CropOnMarkers",
+      "options": {
+        "relativePath": "omr_marker.jpg",
+        "sheetToMarkerWidthRatio": 10.73
+      }
+    }
+  ],
+  "pageDimensions": [
+    794,
+    1123
+  ],
+  "bubbleDimensions": [
+    16,
+    16
+  ],
+  "customLabels": {},
+  "emptyValue": "",
+  "fieldBlocks": {
+    "Trang": {
+      "origin": [
+        76,
+        142
+      ],
+      "bubblesGap": 34,
+      "labelsGap": 34,
+      "fieldLabels": [
+        "trang"
+      ],
+      "bubbleValues": [
+        "1",
+        "2",
+        "3"
+      ],
+      "direction": "horizontal"
+    },
+    "SoBaoDanh": {
+      "origin": [
+        205,
+        216
+      ],
+      "bubblesGap": 52,
+      "labelsGap": 22,
+      "fieldLabels": [
+        "sbd1",
+        "sbd2",
+        "sbd3"
+      ],
+      "bubbleValues": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "direction": "horizontal"
+    }
+  }
+}
